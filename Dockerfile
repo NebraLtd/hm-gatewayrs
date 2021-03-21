@@ -1,10 +1,24 @@
-FROM arm32v6/alpine:3.12.4 as buildstep
+FROM balenalib/raspberry-pi-debian-buster-build as build
 
 RUN apk add --no-cache \
 rust=1.44.0-r0 \
 curl=7.69.1-r3 \
 cargo=1.44.0-r0 \
 git=2.26.3-r0
+
+RUN \
+apt-get update && \
+DEBIAN_FRONTEND="noninteractive" \
+TZ="Europe/London" \
+apt-get -y install \
+curl \
+rust \
+cargo \
+git \
+--no-install-recommends && \
+apt-get autoremove -y &&\
+apt-get clean && \
+rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
 
