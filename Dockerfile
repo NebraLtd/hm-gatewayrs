@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-debian-buster-build as build
+FROM balenalib/raspberry-pi-debian:buster-build as build
 
 RUN apk add --no-cache \
 rust=1.44.0-r0 \
