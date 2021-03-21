@@ -13,3 +13,5 @@ RUN git clone https://github.com/ryanteck/gateway-rs.git
 WORKDIR /opt/gateway-rs
 
 RUN cross build --release --target raspi01
+
+RUN ls target/
