@@ -12,6 +12,7 @@ RUN git clone https://github.com/ryanteck/gateway-rs.git
 
 WORKDIR /opt/gateway-rs
 
+RUN cargo install cross && cargo install cargo-make
 RUN cross build --release --target raspi01
 
 RUN ls target/
