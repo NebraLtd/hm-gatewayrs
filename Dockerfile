@@ -8,8 +8,8 @@ git=2.26.3-r0
 
 WORKDIR /opt
 
-RUN git clone https://github.com/helium/gateway-rs.git
+RUN git clone https://github.com/ryanteck/gateway-rs.git
 
 WORKDIR /opt/gateway-rs
 
-RUN cargo build --release --target arm-unknown-linux-gnueabihf
+RUN cross build --release --target raspi01
