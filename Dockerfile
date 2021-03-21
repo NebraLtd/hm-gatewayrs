@@ -7,13 +7,13 @@ DEBIAN_FRONTEND="noninteractive" \
 TZ="Europe/London" \
 apt-get -y install \
 curl \
-rust \
-cargo \
 git \
 --no-install-recommends && \
 apt-get autoremove -y &&\
 apt-get clean && \
 rm -rf /var/lib/apt/lists/*
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 WORKDIR /opt
 
