@@ -12,4 +12,4 @@ RUN git clone https://github.com/helium/gateway-rs.git
 
 WORKDIR /opt/gateway-rs
 
-RUN cargo build --release
+RUN cargo build --release --target arm-unknown-linux-gnueabihf
