@@ -7,6 +7,7 @@ DEBIAN_FRONTEND="noninteractive" \
 TZ="Europe/London" \
 apt-get -y install \
 wget \
+ca-certificates \
 --no-install-recommends && \
 apt-get autoremove -y &&\
 apt-get clean && \
