@@ -1,4 +1,4 @@
-FROM arm32v5/debian:buster-slim
+FROM balenalib/raspberry-pi-debian:buster-run
 
 
 RUN \
