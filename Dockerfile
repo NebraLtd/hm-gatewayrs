@@ -20,4 +20,6 @@ RUN dpkg -i helium-gateway-v1.0.0-alpha.8-raspi01.deb
 COPY start-gatewayrs.sh .
 RUN chmod +x /opt/nebra-gatewayrs/start-gatewayrs.sh
 
-ENTRYPOINT ["/opt/nebra-gatewayrs/start-gatewayrs.sh"]
+#ENTRYPOINT ["/opt/nebra-gatewayrs/start-gatewayrs.sh"]
+
+ENTRYPOINT ["/bin/bash"]
