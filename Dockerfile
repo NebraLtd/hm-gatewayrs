@@ -1,5 +1,4 @@
-FROM balenalib/raspberry-pi-debian:buster-run
-
+FROM arm32v5/debian:buster-slim
 
 RUN \
 apt-get update && \
