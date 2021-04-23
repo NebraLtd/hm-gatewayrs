@@ -1,5 +1,6 @@
 FROM balenalib/raspberry-pi-debian:buster-run
 
+WORKDIR /opt/nebra-gatewayrs
 
 RUN \
 apt-get update && \
@@ -16,6 +17,7 @@ rm -rf /var/lib/apt/lists/*
 RUN wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.8/helium-gateway-v1.0.0-alpha.8-raspi01.deb
 RUN dpkg -i helium-gateway-v1.0.0-alpha.8-raspi01.deb
 
-#ENTRYPOINT ["/usr/bin/helium_gateway", "-c", "/etc/helium_gateway server"]
+COPY start-gatewayrs.sh .
+RUN chmod +x /opt/nebra-gatewayrs/start-gatewayrs.sh
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/opt/nebra-gatewayrs/start-gatewayrs.sh"]
