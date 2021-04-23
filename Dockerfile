@@ -16,4 +16,4 @@ rm -rf /var/lib/apt/lists/*
 RUN wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.8/helium-gateway-v1.0.0-alpha.8-raspi01.deb
 RUN dpkg -i helium-gateway-v1.0.0-alpha.8-raspi01.deb
 
-ENTRYPOINT ["/usr/bin/helium_gateway", "-c ", "/etc/helium_gateway", "server"]
+ENTRYPOINT ["/usr/bin/helium_gateway", "-c /etc/helium_gateway server"]
