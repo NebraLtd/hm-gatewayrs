@@ -22,8 +22,8 @@ RUN chmod +x /opt/nebra-gatewayrs/start-gatewayrs.sh
 
 COPY settings.toml /etc/helium_gateway/settings.toml
 
-#ENTRYPOINT ["/opt/nebra-gatewayrs/start-gatewayrs.sh"]
+ENTRYPOINT ["/opt/nebra-gatewayrs/start-gatewayrs.sh"]
 
-ENTRYPOINT ["/bin/bash"]
+#ENTRYPOINT ["/bin/bash"]
 
-CMD /opt/nebra-gatewayrs/start-gatewayrs.sh
+#CMD /opt/nebra-gatewayrs/start-gatewayrs.sh
