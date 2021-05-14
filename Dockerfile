@@ -7,8 +7,8 @@ apt-get update && \
 DEBIAN_FRONTEND="noninteractive" \
 TZ="Europe/London" \
 apt-get -y install \
-wget \
-ca-certificates \
+wget=1.20.1-1.1 \
+ca-certificates=20200601~deb10u2 \
 --no-install-recommends && \
 apt-get autoremove -y &&\
 apt-get clean && \
