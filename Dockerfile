@@ -14,7 +14,7 @@ apt-get autoremove -y &&\
 apt-get clean && \
 rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.9/helium-gateway-v1.0.0-alpha.9-raspi01.deb
+RUN wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.13/helium-gateway-v1.0.0-alpha.13-raspi01.deb
 RUN dpkg -i helium-gateway-*-raspi01.deb
 
 COPY start-gatewayrs.sh .
