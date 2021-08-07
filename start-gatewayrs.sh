@@ -31,6 +31,7 @@ else
   cp /etc/helium_gateway/gateway_key.bin /var/data/gateway_key.bin
   export GW_KEYPAIR="/var/data/gateway_key.bin"
   echo "$PUBLIC_KEYS" > /var/data/public_keys
+  fi
 fi
 
 /usr/bin/helium_gateway -c /etc/helium_gateway server
