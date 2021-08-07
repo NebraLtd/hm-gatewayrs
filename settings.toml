@@ -6,3 +6,5 @@ timestamp = false
 [update]
 platform = "raspi01"
 enabled = false
+
+region = "EU868"
