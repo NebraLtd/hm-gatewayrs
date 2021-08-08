@@ -10,7 +10,7 @@ fi
 
 if [[ -v REGION_OVERRIDE ]]
 then
-  echo 'export GW_REGION="'"${REGION_OVERRIDE}\"" >> /etc/environment/profile.d/gateway-rs.sh
+  echo 'export GW_REGION="'"${REGION_OVERRIDE}\"" >> /etc/profile.d/gateway-rs.sh
 else
   echo "REGION_OVERRIDE not set"
   exit 1
