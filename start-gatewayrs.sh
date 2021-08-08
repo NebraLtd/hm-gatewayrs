@@ -5,12 +5,12 @@ then
   echo "Can't get hostname"
   exit 1
 else
-  echo 'export GW_LISTEN_ADDR="'"${LISTEN_ADDR}"':1680"' >> /etc/environment
+  echo 'export GW_LISTEN_ADDR="'"${LISTEN_ADDR}"':1680"' >> /etc/profile.d/gateway-rs.sh
 fi
 
 if [[ -v REGION_OVERRIDE ]]
 then
-  echo 'export GW_REGION="${REGION_OVERRIDE}"' >> /etc/environment
+  echo 'export GW_REGION="'"${REGION_OVERRIDE}\"" >> /etc/environment/profile.d/gateway-rs.sh
 else
   echo "REGION_OVERRIDE not set"
   exit 1
@@ -19,7 +19,7 @@ fi
 if [ -f "/var/data/gateway_key.bin" ]
 then
   echo "Key file already exists"
-  echo 'export GW_KEYPAIR="/var/data/gateway_key.bin"' >> /etc/environment
+  echo 'export GW_KEYPAIR="/var/data/gateway_key.bin"' >> /etc/profile.d/gateway-rs.sh
   if ! PUBLIC_KEYS=$(/usr/bin/helium_gateway key info)
   then
     echo "Can't get miner key info"
@@ -35,11 +35,11 @@ else
   else
   echo "Copying key file to persistent storage"
   cp /etc/helium_gateway/gateway_key.bin /var/data/gateway_key.bin
-  echo 'export GW_KEYPAIR="/var/data/gateway_key.bin"' >> /etc/environment
+  echo 'export GW_KEYPAIR="/var/data/gateway_key.bin"' >> /etc/profile.d/gateway-rs.sh
   echo "$PUBLIC_KEYS" > /var/data/public_keys
   fi
 fi
 
-source /etc/environment
+source /etc/profile.d/gateway-rs.sh
 
 /usr/bin/helium_gateway -c /etc/helium_gateway server
