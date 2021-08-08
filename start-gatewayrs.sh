@@ -5,7 +5,7 @@ then
   echo "Can't get hostname"
   exit 1
 else
-  echo 'export GW_LISTEN_ADDR="${LISTEN_ADDR}:1680"' >> /etc/environment
+  echo 'export GW_LISTEN_ADDR="'"${LISTEN_ADDR}"':1680"' >> /etc/environment
 fi
 
 if [[ -v REGION_OVERRIDE ]]
