@@ -40,6 +40,7 @@ else
   fi
 fi
 
+# shellcheck disable=SC1091
 source /etc/profile.d/gateway-rs.sh
 
 /usr/bin/helium_gateway -c /etc/helium_gateway server
