@@ -12,6 +12,7 @@ RUN \
     TZ="$SYSTEM_TIMEZONE" \
         apt-get -y install \
         wget=1.20.1-1.1 \
+        python3=3.7.3-1 \
         ca-certificates=20200601~deb10u2 \
         --no-install-recommends && \
         apt-get autoremove -y && \
@@ -24,7 +25,8 @@ RUN dpkg -i helium-gateway-*-raspi01.deb
 
 # Copy start script and settings file
 COPY start-gatewayrs.sh .
-COPY settings.toml /etc/helium_gateway/settings.toml
+COPY keys.py .
+COPY settings.toml.template /etc/helium_gateway/settings.toml.template
 
 # Run start-gatewayrs script
 ENTRYPOINT ["/opt/nebra-gatewayrs/start-gatewayrs.sh"]
