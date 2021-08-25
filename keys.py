@@ -14,6 +14,6 @@ while public_key is None:
         sleep(10)
 
 keyfile = open("/var/data/public_keys", "w")
-keyfile.write('''{{pubkey,"{}"}}. {{onboarding_key,"{}"}}. '''
+keyfile.write('''{{pubkey,"{}"}}.\n{{onboarding_key,"{}"}}.\n'''
               '''{{animal_name,"{}"}}.'''.format(public_key, onboard_key, animal))
 keyfile.close()
