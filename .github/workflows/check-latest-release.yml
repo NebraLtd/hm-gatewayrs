@@ -1,4 +1,4 @@
-name: Check if we're using the latest Helium GA
+name: Check if we're using the latest Helium Light Gateway (gateway-rs) release
 
 on:
   schedule:
