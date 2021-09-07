@@ -1,0 +1,39 @@
+name: Check if we're using the latest Helium GA
+
+on:
+  schedule:
+    - cron:  "00 * * * *" # Run hourly
+
+jobs:
+  latest-version:
+    name: Get Latest Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Get Latest Release
+        id: latest_version
+        uses: abatilo/release-info-action@v1.3.0
+        with:
+          owner: abatilo
+          repo: release-info-action
+      - name: Perform check
+        env:
+          LATEST_GA: ${{ steps.latest_version.outputs.latest_tag }}
+        run: |
+          # Get the latest GA release
+          if grep -q "$LATEST_GA" Dockerfile; then
+            echo "We're on the latest Helium GA release."
+            exit 0
+          else
+            echo "We're not on the latest Helium GA release. Please update to $LATEST_GA."
+            exit 1
+          fi
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@master
+        with:
+          status: ${{ job.status }}
+          notify_when: 'failure'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.MINER_MONITORING_SLACK }}
