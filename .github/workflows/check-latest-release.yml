@@ -16,8 +16,8 @@ jobs:
         id: latest_version
         uses: abatilo/release-info-action@v1.3.0
         with:
-          owner: abatilo
-          repo: release-info-action
+          owner: helium
+          repo: gateway-rs
       - name: Perform check
         env:
           LATEST_GA: ${{ steps.latest_version.outputs.latest_tag }}
