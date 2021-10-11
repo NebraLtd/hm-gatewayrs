@@ -20,7 +20,7 @@ RUN \
         rm -rf /var/lib/apt/lists/*
 
 # Pull in latest helium gatewayrs deb file and install
-RUN wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.18/helium-gateway-v1.0.0-alpha.18-raspi01.deb
+RUN wget https://github.com/helium/gateway-rs/releases/download/v1.0.0-alpha.19/helium-gateway-v1.0.0-alpha.19-raspi01.deb
 RUN dpkg -i helium-gateway-*-raspi01.deb
 
 # Copy start script and settings file
