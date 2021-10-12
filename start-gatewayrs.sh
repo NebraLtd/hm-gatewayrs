@@ -3,14 +3,6 @@
 rm -f settings.toml
 rm -f /etc/helium_gateway/settings.toml
 
-if ! LISTEN_ADDR=$(/bin/hostname -i)
-then
-  echo "Can't get hostname"
-  exit 1
-else
-  echo 'listen = "'"${LISTEN_ADDR}"':1680"' >> settings.toml
-fi
-
 if [[ -v REGION_OVERRIDE ]]
 then
   echo 'region = "'"${REGION_OVERRIDE}\"" >> settings.toml
@@ -35,7 +27,6 @@ else
   fi
 fi
 
-echo "" >> settings.toml
 cat /etc/helium_gateway/settings.toml.template >> settings.toml
 cp settings.toml /etc/helium_gateway/settings.toml
 
