@@ -8,7 +8,7 @@ then
   echo "Can't get hostname"
   exit 1
 else
-  echo 'listen_addr = "'"${LISTEN_ADDR}"':1680"' >> settings.toml
+  echo 'listen = "'"${LISTEN_ADDR}"':1680"' >> settings.toml
 fi
 
 if [[ -v REGION_OVERRIDE ]]
