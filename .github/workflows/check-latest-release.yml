@@ -33,7 +33,7 @@ jobs:
             exit 0
           else
             echo "We're not on the latest Helium gateway-rs release. Updating to $LATEST_GA."
-            sed -i -E '2 s/GATEWAY_RS_RELEASE=.*/GATEWAY_RS_RELEASE='$LATEST_CLI'/g' Dockerfile
+            sed -i -E '2 s/GATEWAY_RS_RELEASE=.*/GATEWAY_RS_RELEASE='"$LATEST_CLI"'/g' Dockerfile
             UPDATED=true
             echo "UPDATED=$UPDATED" >> $GITHUB_ENV
             exit 0
