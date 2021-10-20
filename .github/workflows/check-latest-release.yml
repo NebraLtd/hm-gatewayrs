@@ -52,7 +52,7 @@ jobs:
         uses: NebraLtd/git-tag-action@master
         env:
           TAG: ${{ env.LATEST_GA }}
-          GITHUB_TOKEN: ${{ secrets.MR_BUMP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_SHA: ${{ steps.push.outputs.commit-sha }}
       - name: Release
         if: env.UPDATED == 'true'
