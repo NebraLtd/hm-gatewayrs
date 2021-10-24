@@ -14,6 +14,7 @@ for i in $(seq 1 ${#data[@]}); do
     if echo ${line[@]:1} | grep -q 60; then
         echo "ECC is present, using for public key."
     fi
+done
 
 if [[ -v REGION_OVERRIDE ]]
 then
