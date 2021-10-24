@@ -12,7 +12,8 @@ for i in $(seq 1 ${#data[@]}); do
     line=(${data[$i]})
     # shellcheck disable=SC2068
     if echo ${line[@]:1} | grep -q 60; then
-        echo "ECC is present, using for public key."
+        echo "ECC is present."
+        ECC_CHIP=True
     fi
 done
 
@@ -24,7 +25,11 @@ else
   exit 1
 fi
 
-if [ -f "/var/data/gateway_key.bin" ]
+if $ECC_CHIP
+then
+  echo "Using ECC for public key."
+  echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
+elif [ -f "/var/data/gateway_key.bin" ]
 then
   echo "Key file already exists"
   echo 'keypair = "/var/data/gateway_key.bin"' >> settings.toml
