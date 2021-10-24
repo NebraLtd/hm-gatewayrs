@@ -13,6 +13,7 @@ for i in $(seq 1 ${#data[@]}); do
     # shellcheck disable=SC2068
     if echo ${line[@]:1} | grep -q 60; then
         echo "ECC is present, using for public key."
+    fi
 
 if [[ -v REGION_OVERRIDE ]]
 then
