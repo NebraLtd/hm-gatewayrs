@@ -1,6 +1,6 @@
 # hm-gatewayrs
 
-Light gateway container for Helium Network
+Light gateway container for Helium Network which builds the [gateway-rs](https://github.com/helium/gateway-rs) application into a docker container.
 
 ## Pre built containers
 
