@@ -3,6 +3,20 @@
 rm -f settings.toml
 rm -f /etc/helium_gateway/settings.toml
 
+echo "Checking for I2C device"
+
+mapfile -t data < <(i2cdetect -y 1)
+
+for i in $(seq 1 ${#data[@]}); do
+    # shellcheck disable=SC2206
+    line=(${data[$i]})
+    # shellcheck disable=SC2068
+    if echo ${line[@]:1} | grep -q 60; then
+        echo "ECC is present."
+        ECC_CHIP=True
+    fi
+done
+
 if [[ -v REGION_OVERRIDE ]]
 then
   echo 'region = "'"${REGION_OVERRIDE}\"" >> settings.toml
@@ -11,7 +25,11 @@ else
   exit 1
 fi
 
-if [ -f "/var/data/gateway_key.bin" ]
+if [[ -v $ECC_CHIP ]]
+then
+  echo "Using ECC for public key."
+  echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
+elif [ -f "/var/data/gateway_key.bin" ]
 then
   echo "Key file already exists"
   echo 'keypair = "/var/data/gateway_key.bin"' >> settings.toml
