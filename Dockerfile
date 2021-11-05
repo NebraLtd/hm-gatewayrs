@@ -1,5 +1,5 @@
 ARG SYSTEM_TIMEZONE=Europe/London
-ARG GATEWAY_RS_RELEASE=v1.0.0-alpha.20
+ARG GATEWAY_RS_RELEASE=v1.0.0-alpha.21
 
 FROM balenalib/raspberry-pi-debian:buster-run
 
