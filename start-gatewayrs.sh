@@ -25,7 +25,7 @@ else
   exit 1
 fi
 
-if [[ -v $ECC_CHIP ]]
+if [[ -v ECC_CHIP ]]
 then
   echo "Using ECC for public key."
   echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
