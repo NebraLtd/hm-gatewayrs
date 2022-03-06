@@ -48,14 +48,14 @@ fi
 cat /etc/helium_gateway/settings.toml.template >> settings.toml
 cp settings.toml /etc/helium_gateway/settings.toml
 
-if ! PUBLIC_KEYS=$(/usr/bin/helium_gateway -c /etc/helium_gateway key info)
-then
-  echo "Can't get miner key info"
-  exit 1
-else
-  echo "$PUBLIC_KEYS" > /var/data/key_json
-fi
+# if ! PUBLIC_KEYS=$(/usr/bin/helium_gateway -c /etc/helium_gateway key info)
+# then
+#   echo "Can't get miner key info"
+#   exit 1
+# else
+#   echo "$PUBLIC_KEYS" > /var/data/key_json
+# fi
 
-python3 /opt/nebra-gatewayrs/keys.py
+# python3 /opt/nebra-gatewayrs/keys.py
 
 /usr/bin/helium_gateway -c /etc/helium_gateway server
