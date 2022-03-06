@@ -59,3 +59,8 @@ cp settings.toml /etc/helium_gateway/settings.toml
 # python3 /opt/nebra-gatewayrs/keys.py
 
 # /usr/bin/helium_gateway -c /etc/helium_gateway server
+
+while [[ -v OVERRIDE_GWMFR_EXIT ]]
+do
+  sleep 300
+done
