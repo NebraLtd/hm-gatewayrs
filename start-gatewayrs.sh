@@ -25,11 +25,11 @@ else
   exit 1
 fi
 
-if [[ -v ECC_CHIP ]]
-then
-  echo "Using ECC for public key."
-  echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
-elif [ -f "/var/data/gateway_key.bin" ]
+# if [[ -v ECC_CHIP ]]
+# then
+#  echo "Using ECC for public key."
+#  echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
+if [ -f "/var/data/gateway_key.bin" ]
 then
   echo "Key file already exists"
   echo 'keypair = "/var/data/gateway_key.bin"' >> settings.toml
@@ -58,4 +58,4 @@ cp settings.toml /etc/helium_gateway/settings.toml
 
 # python3 /opt/nebra-gatewayrs/keys.py
 
-/usr/bin/helium_gateway -c /etc/helium_gateway server
+# /usr/bin/helium_gateway -c /etc/helium_gateway server
