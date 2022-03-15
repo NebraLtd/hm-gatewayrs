@@ -1,0 +1,13 @@
+# any ip is probably not a good idea for host run should use localhost.
+# but for a conatiner this should be fine
+# using name of the container breaks standlone run
+listen = "0.0.0.0:1680"
+
+[log]
+method = "stdio"
+level = "info"
+timestamp = false
+
+[update]
+platform = "raspi01"
+enabled = false
