@@ -3,7 +3,7 @@ name: Compile Docker Images
 on: [push]
 
 jobs:
-  main:
+  docker-build:
     runs-on: ubuntu-20.04
     permissions:
       packages: write

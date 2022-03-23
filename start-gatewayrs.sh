@@ -1,12 +1,19 @@
 #!/bin/bash
-
-rm -f settings.toml
-rm -f /etc/helium_gateway/settings.toml
+# this scripts expects that the following environment variables are set
+# I2C_DEVICE : the I2C device to use for ecc probe
+# REGION_OVERRIDE/GW_REGION : without one of these two variables the region will default to US915
+# for an asserted device it should not matter.
+# Any other varialbe overrriding gateway rs setting file. gateway-rs allows us to 
+# override all settings in the gateway-rs setting file. Refer readme at 
+# https://github.com/helium/gateway-rs/tree/main for more details.
 
 echo "Checking for I2C device"
+I2C_NUM=$(echo "${I2C_DEVICE}" | cut -d "-" -f2)
 
-mapfile -t data < <(i2cdetect -y 1)
-
+# NOTE:: not sure we even need to do this. We should set the right environment or
+# get it from hm-pyhelper and it should be correct. We are doing this only to make 
+# sure that the gateway runs even when the I2C device is not present.
+mapfile -t data < <( i2cdetect -y "${I2C_NUM}" )
 for i in $(seq 1 ${#data[@]}); do
     # shellcheck disable=SC2206
     line=(${data[$i]})
@@ -17,50 +24,28 @@ for i in $(seq 1 ${#data[@]}); do
     fi
 done
 
+if [[ -v ECC_CHIP ]]
+then
+    echo "Using ECC for public key."
+    export GW_KEYPAIR="ecc://i2c-${I2C_NUM}:96&slot=0"
+elif [[ -v ALLOW_NON_ECC_KEY ]]
+then
+    echo "gateway-rs deb package provided key /etc/helium_gateway/gateway_key.bin will be used."
+else
+    echo "define ALLOW_NON_ECC_KEY environment variable to run gatewayrs without ecc."
+    exit 1
+fi
+
 if [[ -v REGION_OVERRIDE ]]
 then
-  echo 'region = "'"${REGION_OVERRIDE}\"" >> settings.toml
-else
-  echo "REGION_OVERRIDE not set"
-  exit 1
+  export GW_REGION="${REGION_OVERRIDE}"
 fi
 
-# if [[ -v ECC_CHIP ]]
-# then
-#  echo "Using ECC for public key."
-#  echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
-if [ -f "/var/data/gateway_key.bin" ]
-then
-  echo "Key file already exists"
-  echo 'keypair = "/var/data/gateway_key.bin"' >> settings.toml
-else
-  echo "Copying key file to persistent storage"
-  if ! PUBLIC_KEYS=$(/usr/bin/helium_gateway -c /etc/helium_gateway key info)
-  then
-    echo "Can't get miner key info"
-    exit 1
-  else
-    cp /etc/helium_gateway/gateway_key.bin /var/data/gateway_key.bin
-    echo 'keypair = "/var/data/gateway_key.bin"' >> settings.toml
-  fi
-fi
+# NOTE:: this should ultimately move to pktfwd container.
+# the local rpc should is capable of providing this information
+/opt/nebra-gatewayrs/gen-region.sh &
 
-cat /etc/helium_gateway/settings.toml.template >> settings.toml
-cp settings.toml /etc/helium_gateway/settings.toml
+# there is a systemd/sysv script for this service in the deb package
+# it doesn't make much sense to use it in the container
+/usr/bin/helium_gateway -c /etc/helium_gateway server
 
-# if ! PUBLIC_KEYS=$(/usr/bin/helium_gateway -c /etc/helium_gateway key info)
-# then
-#   echo "Can't get miner key info"
-#   exit 1
-# else
-#   echo "$PUBLIC_KEYS" > /var/data/key_json
-# fi
-
-# python3 /opt/nebra-gatewayrs/keys.py
-
-# /usr/bin/helium_gateway -c /etc/helium_gateway server
-
-while [[ -v OVERRIDE_GWMFR_EXIT ]]
-do
-  sleep 300
-done
