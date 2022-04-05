@@ -26,7 +26,7 @@ done
 
 if [[ -v ECC_CHIP ]]
 then
-    echo "Using ECC for public key."
+    echo "Using ECC for public key with GW_KEYPAIR=ecc://i2c-${I2C_NUM}:96&slot=0"
     export GW_KEYPAIR="ecc://i2c-${I2C_NUM}:96&slot=0"
 elif [[ -v ALLOW_NON_ECC_KEY ]]
 then
@@ -47,5 +47,9 @@ fi
 
 # there is a systemd/sysv script for this service in the deb package
 # it doesn't make much sense to use it in the container
-/usr/bin/helium_gateway -c /etc/helium_gateway server
+while :
+do
+    sleep 1
+    /usr/bin/helium_gateway -c /etc/helium_gateway server
+done
 
