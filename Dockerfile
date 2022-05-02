@@ -10,7 +10,7 @@ ENV GATEWAY_RS_RELEASE $GATEWAY_RS_RELEASE
 
 # Pull in latest helium gatewayrs deb file and install
 RUN \
-    curl -L "https://github.com/helium/gateway-rs/releases/download/${GATEWAY_RS_RELEASE}/helium-gateway-${GATEWAY_RS_RELEASE}-raspi01.deb" -o helium-gateway.deb && \
+    curl -L "https://github.com/helium/gateway-rs/releases/download/${GATEWAY_RS_RELEASE}/helium-gateway-${GATEWAY_RS_RELEASE}-raspi234.deb" -o helium-gateway.deb && \
     dpkg -i helium-gateway.deb && \
     rm -f helium-gateway.deb
 
