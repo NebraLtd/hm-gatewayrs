@@ -41,11 +41,16 @@ then
   export GW_REGION="${REGION_OVERRIDE}"
 fi
 
-# NOTE:: this should ultimately move to pktfwd container.
+# NOTE: this should ultimately move to pktfwd container.
 # the local rpc should is capable of providing this information
 /opt/nebra-gatewayrs/gen-region.sh &
 
-# there is a systemd/sysv script for this service in the deb package
-# it doesn't make much sense to use it in the container
-/usr/bin/helium_gateway -c /etc/helium_gateway server
-
+prevent_start="${PREVENT_START_GATEWAYRS:-0}"
+if [ "$prevent_start" = 1 ]; then
+    echo "gatewayrs will not be started. PREVENT_START_GATEWAYRS=1"
+    while true; do sleep 1000; done
+else
+    # there is a systemd/sysv script for this service in the deb package
+    # it doesn't make much sense to use it in the container
+    /usr/bin/helium_gateway -c /etc/helium_gateway server
+fi

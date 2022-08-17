@@ -5,7 +5,7 @@ listen = "0.0.0.0:1680"
 
 [log]
 method = "stdio"
-level = "info"
+level = "debug"
 timestamp = false
 
 [update]

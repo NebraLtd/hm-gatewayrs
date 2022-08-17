@@ -8,6 +8,9 @@ https://github.com/helium/gateway-rs/releases) (built from the [GitHub source](h
 ## Environment variables
 `REGION_OVERRIDE` and `I2C_DEVICE` are used to load the correct settings for the gateway. All settings override will continue to work as documented by upstream [gateway-rs](https://github.com/helium/gateway-rs).
 
+`PREVENT_START_GATEWAYRS` can be set to `1` to prevent the miner from starting.
+This is helpful for debugging the miner manually.
+
 ## Mr Bump
 
 [Mr Bump](https://github.com/mr-bump) is a GitHub bot we created to automate some tasks related to the miner software. This includes updating the miner to the latest GA (and tagging / releasing this update) as well as updating the necessary `docker-compose.yml` files.
