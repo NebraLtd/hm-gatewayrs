@@ -5,7 +5,7 @@ FROM balenalib/raspberry-pi-debian-python:buster-run-20211014 as runner
 WORKDIR /opt/nebra-gatewayrs
 
 ARG SYSTEM_TIMEZONE=Europe/London
-ARG GATEWAY_RS_RELEASE=v1.0.0-alpha.30
+ARG GATEWAY_RS_RELEASE=v1.0.0-alpha.31
 ENV GATEWAY_RS_RELEASE $GATEWAY_RS_RELEASE
 
 # Pull in latest helium gatewayrs deb file and install
