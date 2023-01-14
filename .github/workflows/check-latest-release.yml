@@ -16,10 +16,11 @@ jobs:
           ref: ${{ github.ref }}
       - name: Get latest release
         id: gatewayrs
-        uses: pozetroninc/github-action-get-latest-release@master
+        uses: shawaj/github-action-get-latest-release@patch-1
         with:
           owner: helium
           repo: gateway-rs
+          token: ${{ secrets.GITHUB_TOKEN }}
           # keep bumping the excludes, right now we only have alpha to track.
           # later we will start tracking beta and finally release
           excludes: prerelease, draft
