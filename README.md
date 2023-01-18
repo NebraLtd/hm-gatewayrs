@@ -2,8 +2,7 @@
 
 This is containerized version of helium gateway-rs used by nebra hotspots.
 
-We take the gateway-rs deb package created by Helium from their [Github repo](
-https://github.com/helium/gateway-rs/releases) (built from the [GitHub source](https://github.com/helium/gateway-rs)
+We take the gateway-rs deb package created by Helium from their [Github repo](https://github.com/helium/gateway-rs/releases) (built from the [GitHub source](https://github.com/helium/gateway-rs))
 
 ## Environment variables
 `REGION_OVERRIDE` and `I2C_DEVICE` are used to load the correct settings for the gateway. All settings override will continue to work as documented by upstream [gateway-rs](https://github.com/helium/gateway-rs).
