@@ -16,7 +16,7 @@ jobs:
           ref: ${{ github.ref }}
       - name: Get latest release
         id: gatewayrs
-        uses: shawaj/github-action-get-latest-release@patch-1
+        uses: pozetroninc/github-action-get-latest-release@v0.7.0
         with:
           owner: helium
           repo: gateway-rs
