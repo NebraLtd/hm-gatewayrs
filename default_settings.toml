@@ -1,8 +1,3 @@
-# any ip is probably not a good idea for host run should use localhost.
-# but for a conatiner this should be fine
-# using name of the container breaks standlone run
-listen = "0.0.0.0:1680"
-
 ## gateway-rs configuration file
 
 ## Keypair is a string that supports specifying different locations for
@@ -10,11 +5,14 @@ listen = "0.0.0.0:1680"
 ## can support it.
 
 # File based:
-# keypair = "/etc/helium_gateway/gateway_key.bin"
+keypair = "/etc/helium_gateway/gateway_key.bin"
 
 # Ecc608 based:
-keypair = "ecc://i2c-7:96?slot=0"
-#onboarding = "ecc://i2c-7:96?slot=15"
+# keypair = "ecc://i2c-1:96?slot=0"
+# onboarding = "ecc://i2c-1:96?slot=15"
+
+# The address to listen on for the (semtech) packet forwarder
+listen = "127.0.0.1:1680"
 
 # The local port to serve the local grpc on.
 # Do NOT expose this port outside of the host network for security
@@ -23,15 +21,15 @@ api = 4467
 # The default region to use until a region is received from the Helium network.
 # This value should line up with the configured region of the semtech packet
 # forwarder.
-region = "EU868"
+region = "US915"
 
 [log]
 # The logging method to use. Supported values are "stdio" or syslog"
 method = "stdio"
 # The logging level to assume on startup
-level = "debug"
+level = "info"
 # Whether the logged output should include timestamps
-timestamp = false
+timestamp = true
 
 [poc]
 # The uri to fetch entropy for poc beacons
@@ -42,7 +40,7 @@ ingest_uri = "http://mainnet-pociot.helium.io:9080"
 # The config service is used to fetch and monitor region parameters and other
 # configuration items
 [config]
-pubkey = "137oJzq1qZpSbzHawaysTGGsRCYTXG1MiTMQNxYSsQJp4YMDdN8"
+pubkey = "115PmCR6fpFihdjw626JXYdUEdzwjh66yoWzWkMvB9CRGEx1U6G"
 uri = "http://mainnet-config.helium.io:6080/"
 
 # The router uri is where lorawan packets are delivered to the helium packet
@@ -225,7 +223,3 @@ uri = "http://13.215.29.4:8080"
 # lgw4-sydney
 pubkey = "112q3CB7MsFpi7Y3JuiHzF9h2ndH88KeZ3LUL6juJwMdo4g4Lsoq"
 uri = "http://13.211.55.217:8080"
-
-[update]
-platform = "raspi01"
-enabled = false

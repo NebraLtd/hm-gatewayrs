@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # this scripts expects that the following environment variables are set
 # I2C_DEVICE : the I2C device to use for ecc probe
 # REGION_OVERRIDE/GW_REGION : without one of these two variables the region will default to US915
@@ -7,39 +7,48 @@
 # override all settings in the gateway-rs setting file. Refer readme at 
 # https://github.com/helium/gateway-rs/tree/main for more details.
 
-echo "Checking for I2C device"
-I2C_NUM=$(echo "${I2C_DEVICE}" | cut -d "-" -f2)
+#echo "Checking for I2C device"
+#I2C_NUM=$(echo "${I2C_DEVICE}" | cut -d "-" -f2)
+# I2C_NUM=7
 
 # NOTE:: not sure we even need to do this. We should set the right environment or
 # get it from hm-pyhelper and it should be correct. We are doing this only to make 
 # sure that the gateway runs even when the I2C device is not present.
-mapfile -t data < <( i2cdetect -y "${I2C_NUM}" )
-for i in $(seq 1 ${#data[@]}); do
-    # shellcheck disable=SC2206
-    line=(${data[$i]})
-    # shellcheck disable=SC2068
-    if echo ${line[@]:1} | grep -q 60; then
-        echo "ECC is present."
-        ECC_CHIP=True
-    fi
-done
+# mapfile -t data < <( i2cdetect -y "${I2C_NUM}" )  # TODO disabled temporarily
+# for i in $(seq 1 ${#data[@]}); do
+#     # shellcheck disable=SC2206
+#     line=(${data[$i]})
+#     # shellcheck disable=SC2068
+#     if echo ${line[@]:1} | grep -q 60; then
+#         echo "ECC is present."
+#         ECC_CHIP=True
+#     fi
+# done
 
-if [[ -v ECC_CHIP ]]
-then
-    echo "Using ECC for public key."
-    export GW_KEYPAIR="ecc://i2c-${I2C_NUM}:96&slot=0"
-elif [[ -v ALLOW_NON_ECC_KEY ]]
-then
-    echo "gateway-rs deb package provided key /etc/helium_gateway/gateway_key.bin will be used."
-else
-    echo "define ALLOW_NON_ECC_KEY environment variable to run gatewayrs without ecc."
-    exit 1
-fi
+# ECC_CHIP=True
+# REGION_OVERRIDE=EU868
 
-if [[ -v REGION_OVERRIDE ]]
-then
-  export GW_REGION="${REGION_OVERRIDE}"
-fi
+# if [ -n "${ECC_CHIP+x}" ]
+# then
+#     echo "Using ECC for public key."
+#     export GW_KEYPAIR="ecc://i2c-${I2C_NUM}:96&slot=0"
+# elif [ -n "${ALLOW_NON_ECC_KEY+x}" ]
+# then
+#     echo "gateway-rs deb package provided key /etc/helium_gateway/gateway_key.bin will be used."
+# else
+#     echo "define ALLOW_NON_ECC_KEY environment variable to run gatewayrs without ecc."
+#     exit 1
+# fi
+
+# if [ -n "${REGION_OVERRIDE+x}" ]
+# then
+#   export GW_REGION="${REGION_OVERRIDE}"
+# fi
+
+# export GW_LOG_LEVEL=debug
+# export GW_LOG_TIMESTAMP=true
+# export GW_LOG_METHOD=stdio
+# export GW_UPDATE_ENABLED=false
 
 # NOTE: this should ultimately move to pktfwd container.
 # the local rpc should is capable of providing this information
@@ -52,5 +61,7 @@ if [ "$prevent_start" = 1 ]; then
 else
     # there is a systemd/sysv script for this service in the deb package
     # it doesn't make much sense to use it in the container
-    /usr/bin/helium_gateway -c /etc/helium_gateway server
+    # helium_gateway -c /etc/helium_gateway server TODO old one
+    echo "Starting gateway-rs..."
+    helium_gateway server
 fi
