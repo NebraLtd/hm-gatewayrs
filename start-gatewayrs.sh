@@ -25,9 +25,6 @@
 #     fi
 # done
 
-# ECC_CHIP=True
-# REGION_OVERRIDE=EU868
-
 # if [ -n "${ECC_CHIP+x}" ]
 # then
 #     echo "Using ECC for public key."
@@ -40,15 +37,9 @@
 #     exit 1
 # fi
 
-# if [ -n "${REGION_OVERRIDE+x}" ]
-# then
-#   export GW_REGION="${REGION_OVERRIDE}"
-# fi
-
-# export GW_LOG_LEVEL=debug
-# export GW_LOG_TIMESTAMP=true
-# export GW_LOG_METHOD=stdio
-# export GW_UPDATE_ENABLED=false
+if [ -n "${REGION_OVERRIDE+x}" ]; then
+  export GW_REGION="${REGION_OVERRIDE}"
+fi
 
 # NOTE: this should ultimately move to pktfwd container.
 # the local rpc should is capable of providing this information

@@ -23,7 +23,7 @@ api = 4467
 # The default region to use until a region is received from the Helium network.
 # This value should line up with the configured region of the semtech packet
 # forwarder.
-region = "US915"
+region = "EU433"
 
 [log]
 # The logging method to use. Supported values are "stdio" or syslog"

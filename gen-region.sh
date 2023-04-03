@@ -1,9 +1,15 @@
 #!/usr/bin/env sh
 
 # Wait until miner knows the regulatory region.
-while ! /usr/bin/helium_gateway info -k region > /dev/null 2>&1; do
+while ! helium_gateway info region > /dev/null 2>&1; do
     sleep 1
 done
 
-REGIONDATA=$(/usr/bin/helium_gateway info -k region | grep "region" | cut -d ":" -f2 | tr -d " ,\"")
+REGIONDATA=$(helium_gateway info region | grep "region" | cut -d ":" -f2 | tr -d " ,\"")
+
+while [ "$REGIONDATA" = "EU433" ]; do
+    sleep 1
+    REGIONDATA=$(helium_gateway info region | grep "region" | cut -d ":" -f2 | tr -d " ,\"")
+done
+
 echo "$REGIONDATA" > /var/pktfwd/region
