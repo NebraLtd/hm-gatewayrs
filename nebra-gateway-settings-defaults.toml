@@ -13,7 +13,7 @@ listen = "0.0.0.0:1680"
 # keypair = "/etc/helium_gateway/gateway_key.bin"
 
 # Ecc608 based:
-keypair = "ecc://i2c-7:96?slot=0"
+keypair = "SWARM_KEY_URI_PARAM"
 #onboarding = "ecc://i2c-7:96?slot=15"
 
 # The local port to serve the local grpc on.
