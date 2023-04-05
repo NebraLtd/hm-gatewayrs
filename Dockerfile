@@ -1,4 +1,4 @@
-FROM quay.io/team-helium/miner:gateway-v1.0.0@sha256:f83f3002c59fd8539e3e1d985f824430d29de4a4ffd559ac394175de93479c42 as runner
+FROM quay.io/team-helium/miner:gateway-v1.0.0 as runner
 
 # Move to working directory
 RUN mkdir -p /opt/nebra-gatewayrs
