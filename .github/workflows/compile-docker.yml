@@ -99,8 +99,8 @@ jobs:
       - name: Create multi-arch images
         run: |
           tags=(${{ steps.meta.outputs.tags }})
-          docker buildx imagetools create -t ${tags[0]} -t ${tags[1]} -t ${tags[2]} nebraltd/hm-gatewayrs:arm64-${{ github.sha }} nebraltd/hm-gatewayrs:arm-${{ github.sha }} nebraltd/hm-gatewayrs:amd64-${{ github.sha }}
-          docker buildx imagetools create -t ${tags[3]} -t ${tags[4]} -t ${tags[5]} ghcr.io/nebraltd/hm-gatewayrs:arm64-${{ github.sha }} ghcr.io/nebraltd/hm-gatewayrs:arm-${{ github.sha }} ghcr.io/nebraltd/hm-gatewayrs:amd64-${{ github.sha }}
+          docker buildx imagetools create -t ${tags[0]} -t ${tags[1]} -t ${tags[2]} nebraltd/hm-gatewayrs:arm64-${{ github.sha }} nebraltd/hm-gatewayrs:amd64-${{ github.sha }}
+          docker buildx imagetools create -t ${tags[3]} -t ${tags[4]} -t ${tags[5]} ghcr.io/nebraltd/hm-gatewayrs:arm64-${{ github.sha }} ghcr.io/nebraltd/hm-gatewayrs:amd64-${{ github.sha }}
 
       - name: Update repo description
         uses: peter-evans/dockerhub-description@v3
