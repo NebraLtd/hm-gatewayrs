@@ -3,7 +3,7 @@ name: Compile Docker Images
 on: [push]
 
 jobs:
-  docker-build:
+  main:
     strategy:
       matrix:
         arch: [amd64, arm64]
