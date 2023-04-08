@@ -1,7 +1,14 @@
-FROM quay.io/team-helium/miner:gateway-v1.0.0 as runner
+FROM quay.io/team-helium/miner:gateway-v1.0.0 AS runner
 
-# Move to working directory
-RUN mkdir -p /opt/nebra-gatewayrs
+ENV PYTHON_DEPENDENCIES_DIR=/opt/python-dependencies
+
+# grpcio has to be installed from cache
+# hadolint ignore=DL3042,DL3018
+RUN mkdir -p /opt/nebra-gatewayrs && \
+    apk add --no-cache python3=3.10.11-r0 py3-grpcio==1.50.1-r0 gcompat && \
+    python3 -m ensurepip && \
+    pip3 install grpcio==1.50.1 && \
+    pip3 install --no-cache-dir --target="$PYTHON_DEPENDENCIES_DIR" hm-pyhelper==0.14.4
 WORKDIR /opt/nebra-gatewayrs
 
 ARG SYSTEM_TIMEZONE=Europe/London
