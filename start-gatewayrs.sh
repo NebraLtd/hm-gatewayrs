@@ -1,9 +1,17 @@
 #!/bin/sh
 
-# The light gateway-rs expects a fixed ECC key address. We're providing it via an ENV variable
-# which is supplied by helium-miner-software, hence hm-pyhelper.
-awk -v SWARM_KEY_URI="$SWARM_KEY_URI" '{ sub(/SWARM_KEY_URI_PARAM/, SWARM_KEY_URI); print; }' /etc/helium_gateway/settings.toml.template > /etc/helium_gateway/settings.toml
+# Injecting default impossible into settings
+awk -v DEFAULT_REGION="region = \"EU433\"" '{ sub(/region = "US915"/, DEFAULT_REGION); print; }' /etc/helium_gateway/settings.toml.orig > /etc/helium_gateway/settings.toml
 
+# These scripts detect possible keypair and onboarding key locations
+GW_KEYPAIR="$(./get_keypair.py)"
+export GW_KEYPAIR
+
+GW_ONBOARDING="$(./get_onboarding.py)"
+export GW_ONBOARDING
+
+# Region param can be overridden with REGION_OVERRIDE environment parameter
+# EU433 is the default to detect impossible default value
 if [ -n "${REGION_OVERRIDE+x}" ]; then
   export GW_REGION="${REGION_OVERRIDE}"
 fi
