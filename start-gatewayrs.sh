@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Injecting default impossible into settings
-awk -v DEFAULT_REGION="region = \"EU433\"" '{ sub(/region = "US915"/, DEFAULT_REGION); print; }' /etc/helium_gateway/settings.toml.orig > /etc/helium_gateway/settings.toml
-
 # These scripts detect possible keypair and onboarding key locations
 GW_KEYPAIR="$(./get_keypair.py)"
 export GW_KEYPAIR
@@ -10,15 +7,26 @@ export GW_KEYPAIR
 GW_ONBOARDING="$(./get_onboarding.py)"
 export GW_ONBOARDING
 
+# Set the packet forwarder listen address
+GW_LISTEN="0.0.0.0:1680"
+export GW_LISTEN
+
+# Set the gRPC API listen address
+GW_API="0.0.0.0:4467"
+export GW_API
+
 # Region param can be overridden with REGION_OVERRIDE environment parameter
-# EU433 is the default to detect impossible default value
+# UNKNOWN is the default to detect impossible default value
 if [ -n "${REGION_OVERRIDE+x}" ]; then
+  export GW_REGION="${REGION_OVERRIDE}"
+elif [ -f "/var/pktfwd/region" ]; then
+  REGION_OVERRIDE="$(cat /var/pktfwd/region)"
   export GW_REGION="${REGION_OVERRIDE}"
 fi
 
 # This script runs in the background and checks the region every second.
 # It would generate a region file if the gateway is not giving any error
-# and returns a region other than the impossible default, EU433.
+# and returns a region other than the impossible default, UNKNOWN.
 /opt/nebra-gatewayrs/gen-region.sh &
 
 prevent_start="${PREVENT_START_GATEWAYRS:-0}"

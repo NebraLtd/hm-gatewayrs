@@ -47,6 +47,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
+          build-args: BUILD_ARCH=${{ matrix.arch }}
           push: true
           platforms: linux/${{ matrix.arch }}
           labels: ${{ steps.meta.outputs.labels }}

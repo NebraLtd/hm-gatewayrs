@@ -14,6 +14,10 @@ ARG SYSTEM_TIMEZONE=Europe/London
 ARG GATEWAY_RS_RELEASE=v1.0.0
 ENV GATEWAY_RS_RELEASE $GATEWAY_RS_RELEASE
 
+# Copy newer binaries into place
+ARG BUILD_ARCH
+COPY helium_gateway_"$BUILD_ARCH" /usr/local/bin/helium_gateway
+
 # Copy start script and settings file
 COPY *.sh ./
 COPY *.py ./
