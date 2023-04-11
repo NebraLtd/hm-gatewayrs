@@ -1,3 +1,2 @@
-# These two are required but installed externally due to compatibility issues
-# grpcio==1.50.1
-# hm-pyhelper==0.14.4
+grpcio==1.50.1
+hm-pyhelper==0.14.5
