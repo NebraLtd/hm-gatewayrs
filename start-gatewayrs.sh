@@ -5,10 +5,18 @@ awk -v DEFAULT_REGION="region = \"EU433\"" '{ sub(/region = "US915"/, DEFAULT_RE
 
 # These scripts detect possible keypair and onboarding key locations
 GW_KEYPAIR="$(./get_keypair.py)"
-export GW_KEYPAIR
+if [ "$GW_KEYPAIR" != "None" ]; then
+  export GW_KEYPAIR
+else
+  echo "ERROR: Can't find ECC. Ensure SWARM_KEY_URI is correct in hardware definitions."
+fi
 
 GW_ONBOARDING="$(./get_onboarding.py)"
-export GW_ONBOARDING
+if [ "$GW_ONBOARDING" != "None" ]; then
+  export GW_ONBOARDING
+else
+  echo "ERROR: Can't find onboarding key. Ensure ONBOARDING_KEY_URI is correct in hardware definitions."
+fi
 
 # Region param can be overridden with REGION_OVERRIDE environment parameter
 # EU433 is the default to detect impossible default value
