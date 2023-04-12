@@ -14,7 +14,6 @@ ADD https://github.com/helium/gateway-rs/releases/download/v"$GATEWAY_RS_RELEASE
 
 RUN tar -xzf /etc/helium_gateway/helium-gateway.tar.gz && \
     mv /etc/helium_gateway/helium_gateway /usr/local/bin/helium_gateway && \
-    ls -l && \
     rm -f /etc/helium_gateway/helium-gateway.tar.gz
 
 WORKDIR /opt/nebra-gatewayrs
