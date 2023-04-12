@@ -2,10 +2,18 @@
 
 # These scripts detect possible keypair and onboarding key locations
 GW_KEYPAIR="$(./get_keypair.py)"
-export GW_KEYPAIR
+if [ "$GW_KEYPAIR" != "None" ]; then
+  export GW_KEYPAIR
+else
+  echo "ERROR: Can't find ECC. Ensure SWARM_KEY_URI is correct in hardware definitions."
+fi
 
 GW_ONBOARDING="$(./get_onboarding.py)"
-export GW_ONBOARDING
+if [ "$GW_ONBOARDING" != "None" ]; then
+  export GW_ONBOARDING
+else
+  echo "ERROR: Can't find onboarding key. Ensure ONBOARDING_KEY_URI is correct in hardware definitions."
+fi
 
 # Set the packet forwarder listen address
 GW_LISTEN="0.0.0.0:1680"
@@ -23,6 +31,13 @@ elif [ -f "/var/pktfwd/region" ]; then
   REGION_OVERRIDE="$(cat /var/pktfwd/region)"
   export GW_REGION="${REGION_OVERRIDE}"
 fi
+
+# Wait for the diagnostics app to be loaded
+until wget -q -T 10 -O - http://diagnostics:80/initFile.txt > /dev/null 2>&1
+do
+  echo "Diagnostics container not ready. Going to sleep."
+  sleep 10
+done
 
 # This script runs in the background and checks the region every second.
 # It would generate a region file if the gateway is not giving any error
