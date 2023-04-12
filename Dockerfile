@@ -8,13 +8,15 @@ ENV GATEWAY_RS_RELEASE $GATEWAY_RS_RELEASE
 ARG BUILD_BOARD
 ENV BUILD_BOARD $BUILD_BOARD
 
-ADD https://github.com/helium/gateway-rs/releases/download/v"$GATEWAY_RS_RELEASE"/helium-gateway-"$GATEWAY_RS_RELEASE"-"$BUILD_BOARD".tar.gz /tmp/helium-gateway.tar.gz
-RUN tar -xzf /tmp/helium-gateway.tar.gz && \
-    mv /tmp/helium-gateway/helium_gateway /usr/local/bin/helium_gateway && \
-    mkdir /etc/helium_gateway && \
-    mv /tmp/helium-gateway/settings.toml /etc/helium_gateway/settings.toml && \
-    rm -Rf /tmp/helium-gateway && \
-    rm -f /tmp/helium-gateway.tar.gz
+WORKDIR /etc/helium_gateway
+
+ADD https://github.com/helium/gateway-rs/releases/download/v"$GATEWAY_RS_RELEASE"/helium-gateway-"$GATEWAY_RS_RELEASE"-"$BUILD_BOARD".tar.gz helium-gateway.tar.gz
+
+RUN tar -xzf /etc/helium_gateway/helium-gateway.tar.gz && \
+    mv /etc/helium_gateway/helium-gateway/helium_gateway /usr/local/bin/helium_gateway && \
+    mv /etc/helium_gateway/helium-gateway/settings.toml /etc/helium_gateway/settings.toml && \
+    rm -Rf /etc/helium_gateway/helium-gateway && \
+    rm -f /etc/helium_gateway/helium-gateway.tar.gz
 
 WORKDIR /opt/nebra-gatewayrs
 COPY requirements.txt requirements.txt
