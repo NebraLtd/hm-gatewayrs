@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Injecting default impossible into settings
-awk -v DEFAULT_REGION="region = \"EU433\"" '{ sub(/region = "US915"/, DEFAULT_REGION); print; }' /etc/helium_gateway/settings.toml.orig > /etc/helium_gateway/settings.toml
+awk -v DEFAULT_REGION="region = \"EU433\"" '{ sub(/# region = "US915"/, DEFAULT_REGION); print; }' /etc/helium_gateway/settings.toml.orig > /etc/helium_gateway/settings.toml
 
 # These scripts detect possible keypair and onboarding key locations
 GW_KEYPAIR="$(./get_keypair.py)"
