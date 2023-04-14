@@ -24,13 +24,6 @@ if [ -n "${REGION_OVERRIDE+x}" ]; then
   export GW_REGION="${REGION_OVERRIDE}"
 fi
 
-# Wait for the diagnostics app to be loaded
-until wget -q -T 10 -O - http://diagnostics:80/initFile.txt > /dev/null 2>&1
-do
-  echo "Diagnostics container not ready. Going to sleep."
-  sleep 10
-done
-
 # This script runs in the background and checks the region every second.
 # It would generate a region file if the gateway is not giving any error
 # and returns a region other than the impossible default, EU433.
