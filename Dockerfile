@@ -5,6 +5,9 @@ FROM quay.io/team-helium/miner:gateway-"$GATEWAY_RS_RELEASE" AS runner
 ARG GATEWAY_RS_RELEASE
 ENV GATEWAY_RS_RELEASE $GATEWAY_RS_RELEASE
 
+ENV GW_API "0.0.0.0:4467"
+ENV GW_LISTEN "0.0.0.0:1680"
+
 WORKDIR /opt/nebra-gatewayrs
 COPY requirements.txt requirements.txt
 
