@@ -7,7 +7,7 @@ done
 
 REGIONDATA=$(helium_gateway info region | grep "region" | cut -d ":" -f2 | tr -d " ,\"")
 
-while [ "$REGIONDATA" = "EU433" ] || [ "$REGIONDATA" = "" ] || [ "$REGIONDATA" = "null" ]; do
+while [ "$REGIONDATA" = "UNKNOWN" ] || [ "$REGIONDATA" = "" ] || [ "$REGIONDATA" = "null" ]; do
     sleep 1
     REGIONDATA=$(helium_gateway info region | grep "region" | cut -d ":" -f2 | tr -d " ,\"")
 done
