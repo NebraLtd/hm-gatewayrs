@@ -41,6 +41,7 @@ jobs:
             sed -i -E 's/GATEWAY_RS_RELEASE=.*/GATEWAY_RS_RELEASE='$LATEST_GA'/g' Dockerfile
             UPDATED=true
             echo "UPDATED=$UPDATED" >> $GITHUB_ENV
+            sleep 900
             exit 0
           fi
       - name: Push updated Dockerfile if available
