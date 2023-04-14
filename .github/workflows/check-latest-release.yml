@@ -95,7 +95,7 @@ jobs:
         uses: ravsamhq/notify-slack-action@master
         with:
           status: ${{ job.status }}
-          notification_title: 'Helium gateway-rs has been updated to ${{ env.LATEST_GA }}. Please push to light testnet!'
+          notification_title: 'Helium gateway-rs has been updated to ${{ env.LATEST_GA }}. Please push to testnet!'
           message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
           footer: '<{run_url}|View Run> | Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>'
           mention_groups: 'S02GCFWL27R'
