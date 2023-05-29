@@ -10,6 +10,9 @@ if [ -z "$GW_KEYPAIR" ] || [ "$GW_KEYPAIR" = "" ]; then
     echo "ERROR: Can't find ECC. Ensure SWARM_KEY_URI is correct in hardware definitions."
   fi
 else
+  # Whilst you can override the key location using GW_KEYPAIR it is best to use the 
+  # SWARM_KEY_URI_OVERRIDE variable instead as this also get picked up in diagnostics and other
+  # containers
   printf "Keypair has been defined by environment variable. (GW_KEYPAIR = %s)\n" "$GW_KEYPAIR"
 fi
 
@@ -22,6 +25,9 @@ if [ -z "$GW_ONBOARDING" ] || [ "$GW_ONBOARDING" = "" ]; then
     echo "ERROR: Can't find onboarding key. Ensure ONBOARDING_KEY_URI is correct in hardware definitions."
   fi
 else
+  # Whilst you can override the key location using GW_ONBOARDING it is best to use the 
+  # ONBOARDING_KEY_URI_OVERRIDE variable instead as this also get picked up in diagnostics and other
+  # containers
   printf "Onboarding key has been defined by environment variable. (GW_ONBOARDING = %s)\n" "$GW_ONBOARDING"
 fi
 
