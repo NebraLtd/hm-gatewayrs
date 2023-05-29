@@ -1,18 +1,28 @@
 #!/bin/sh
 
 # These scripts detect possible keypair and onboarding key locations
-GW_KEYPAIR="$(./get_keypair.py)"
-if [ "$GW_KEYPAIR" != "None" ]; then
-  export GW_KEYPAIR
+if [ -z "$GW_KEYPAIR" ] || [ "$GW_KEYPAIR" = "" ]; then
+  GW_KEYPAIR="$(./get_keypair.py)"
+  if [ "$GW_KEYPAIR" != "None" ]; then
+    printf "Keypair has been found. (GW_KEYPAIR = %s)\n" "$GW_KEYPAIR"
+    export GW_KEYPAIR
+  else
+    echo "ERROR: Can't find ECC. Ensure SWARM_KEY_URI is correct in hardware definitions."
+  fi
 else
-  echo "ERROR: Can't find ECC. Ensure SWARM_KEY_URI is correct in hardware definitions."
+  printf "Keypair has been defined by environment variable. (GW_KEYPAIR = %s)\n" "$GW_KEYPAIR"
 fi
 
-GW_ONBOARDING="$(./get_onboarding.py)"
-if [ "$GW_ONBOARDING" != "None" ]; then
-  export GW_ONBOARDING
+if [ -z "$GW_ONBOARDING" ] || [ "$GW_ONBOARDING" = "" ]; then
+  GW_ONBOARDING="$(./get_onboarding.py)"
+  if [ "$GW_ONBOARDING" != "None" ]; then
+    printf "Onboarding key has been found. (GW_ONBOARDING = %s)\n" "$GW_ONBOARDING"
+    export GW_ONBOARDING
+  else
+    echo "ERROR: Can't find onboarding key. Ensure ONBOARDING_KEY_URI is correct in hardware definitions."
+  fi
 else
-  echo "ERROR: Can't find onboarding key. Ensure ONBOARDING_KEY_URI is correct in hardware definitions."
+  printf "Onboarding key has been defined by environment variable. (GW_ONBOARDING = %s)\n" "$GW_ONBOARDING"
 fi
 
 # Region param can be overridden with REGION_OVERRIDE environment parameter
