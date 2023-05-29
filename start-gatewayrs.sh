@@ -25,6 +25,12 @@ else
   printf "Onboarding key has been defined by environment variable. (GW_ONBOARDING = %s)\n" "$GW_ONBOARDING"
 fi
 
+# When changing regulatory region for a particular area it might be necessary
+# to forceably delete the region file from persistent storage to avoid issues.
+if [ "$DELETE_REGION_FILE" = "True" ]; then
+  rm -f /var/pktfwd/region
+fi
+
 # Region param can be overridden with REGION_OVERRIDE environment parameter
 # UNKNOWN is the default to detect impossible default value
 if [ -n "${REGION_OVERRIDE+x}" ]; then
@@ -45,6 +51,9 @@ done
 # It would generate a region file if the gateway is not giving any error
 # and returns a region other than the impossible default, UNKNOWN.
 /opt/nebra-gatewayrs/gen-region.sh &
+
+# Run crond in background to periodically check region.
+crond -l 8
 
 prevent_start="${PREVENT_START_GATEWAYRS:-0}"
 if [ "$prevent_start" = 1 ]; then
