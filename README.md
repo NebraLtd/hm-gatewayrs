@@ -10,6 +10,10 @@ We take the gateway-rs deb package created by Helium from their [Github repo](ht
 `PREVENT_START_GATEWAYRS` can be set to `1` to prevent the miner from starting.
 This is helpful for debugging the miner manually.
 
+### GW_KEYPAIR and GW_ONBOARDING - testing use only
+
+Whilst these environment variables can be used to override the swarm key and onboarding key respectively, it is usually best to use the [SWARM_KEY_URI_OVERRIDE](https://github.com/NebraLtd/hm-pyhelper/blob/d189960ab0cbde53ac414f35f369c53b2bb5e0f1/hm_pyhelper/miner_param.py#L127) and [ONBOARDING_KEY_URI_OVERRIDE](https://github.com/NebraLtd/hm-pyhelper/blob/d189960ab0cbde53ac414f35f369c53b2bb5e0f1/hm_pyhelper/miner_param.py#L170) variables that are parsed in hm-pyhelper instead as this also get picked up in diagnostics and other containers.
+
 ## Mr Bump
 
 [Mr Bump](https://github.com/mr-bump) is a GitHub bot we created to automate some tasks related to the miner software. This includes updating the miner to the latest GA (and tagging / releasing this update) as well as updating the necessary `docker-compose.yml` files.
