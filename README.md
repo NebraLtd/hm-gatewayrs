@@ -12,7 +12,7 @@ This is helpful for debugging the miner manually.
 
 ### GW_KEYPAIR and GW_ONBOARDING - testing use only
 
-Whilst these environment variables can be used to override the swarm key and onboarding key respectively, it is usually best to use the [SWARM_KEY_URI_OVERRIDE](https://github.com/NebraLtd/hm-pyhelper/blob/d189960ab0cbde53ac414f35f369c53b2bb5e0f1/hm_pyhelper/miner_param.py#L127) and [ONBOARDING_KEY_URI_OVERRIDE](https://github.com/NebraLtd/hm-pyhelper/blob/d189960ab0cbde53ac414f35f369c53b2bb5e0f1/hm_pyhelper/miner_param.py#L170) variables that are parsed in hm-pyhelper instead as this also get picked up in diagnostics and other containers.
+Whilst these environment variables can be used to override the swarm key and onboarding key respectively, it is usually best to use the [SWARM_KEY_URI_OVERRIDE](https://github.com/NebraLtd/hm-pyhelper/blob/d189960ab0cbde53ac414f35f369c53b2bb5e0f1/hm_pyhelper/miner_param.py#L127) and [ONBOARDING_KEY_URI_OVERRIDE](https://github.com/NebraLtd/hm-pyhelper/blob/d189960ab0cbde53ac414f35f369c53b2bb5e0f1/hm_pyhelper/miner_param.py#L170) variables that are parsed in [hm-pyhelper](https://github.com/NebraLtd/hm-pyhelper) instead as this also get picked up in diagnostics and other containers.
 
 ## Mr Bump
 
