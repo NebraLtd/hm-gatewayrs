@@ -33,7 +33,7 @@ fi
 
 # When changing regulatory region for a particular area it might be necessary
 # to forceably delete the region file from persistent storage to avoid issues.
-if [ "$DELETE_REGION_FILE" = "True" ]; then
+if [ "$DELETE_REGION_FILE" = "True" ] || grep -q "region_" /var/pktfwd/region ; then
   rm -f /var/pktfwd/region
 fi
 
