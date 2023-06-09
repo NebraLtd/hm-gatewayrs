@@ -34,7 +34,7 @@ fi
 # When changing regulatory region for a particular area it might be necessary
 # to forceably delete the region file from persistent storage to avoid issues.
 # It is also necessary to delete this file if a miner is using an old style format
-# for the region such as region_eu868 to allow gateway-rs to start properly.
+# for the region (such as region_eu868) to allow gateway-rs to start properly.
 if [ "$DELETE_REGION_FILE" = "True" ] || grep -q "region_" /var/pktfwd/region ; then
   rm -f /var/pktfwd/region
 fi
