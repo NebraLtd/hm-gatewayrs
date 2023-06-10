@@ -4,6 +4,8 @@ FROM quay.io/team-helium/miner:gateway-"$GATEWAY_RS_RELEASE" AS runner
 
 ARG GATEWAY_RS_RELEASE
 ENV GATEWAY_RS_RELEASE $GATEWAY_RS_RELEASE
+ARG PYTHON_VERSION
+ENV PYTHON_VERSION $PYTHON_VERSION
 
 # Set the packet forwarder and gRPC API listen addresses.
 # We set these here as they are static and more temperamental.
@@ -17,7 +19,7 @@ COPY requirements.txt requirements.txt
 # grpcio has to be installed from cache
 # hadolint ignore=DL3042,DL3018
 RUN apk add --no-cache \
-      python3=3.11.4-r0 \
+      python3="$PYTHON_VERSION" \
       py3-grpcio=1.50.1-r0 \
       gcompat=1.1.0-r0 \
       i2c-tools=4.3-r1 && \
