@@ -6,7 +6,11 @@ jobs:
   main:
     strategy:
       matrix:
-        arch: [amd64, arm64]
+        include:
+          - arch: amd64
+            python: 3.11.4-r0
+          - arch: arm64
+            python: 3.10.11.-r0
     runs-on: ubuntu-20.04
     permissions:
       packages: write
@@ -47,6 +51,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
+          build-args: PYTHON-VERSION=${{ matrix.python }}
           push: true
           platforms: linux/${{ matrix.arch }}
           labels: ${{ steps.meta.outputs.labels }}
