@@ -51,7 +51,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          build-args: PYTHON-VERSION=${{ matrix.python }}
+          build-args: PYTHON_VERSION=${{ matrix.python }}
           push: true
           platforms: linux/${{ matrix.arch }}
           labels: ${{ steps.meta.outputs.labels }}
