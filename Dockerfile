@@ -17,7 +17,7 @@ COPY requirements.txt requirements.txt
 # grpcio has to be installed from cache
 # hadolint ignore=DL3042,DL3018
 RUN apk add --no-cache \
-      python3=3.10.12-r0 \
+      python3=3.11.4-r0 \
       py3-grpcio=1.50.1-r0 \
       gcompat=1.1.0-r0 \
       i2c-tools=4.3-r1 && \
