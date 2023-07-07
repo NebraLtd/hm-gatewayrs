@@ -1,2 +1,2 @@
-grpcio==1.56.0
+grpcio==1.50.1
 hm-pyhelper==0.14.21
