@@ -1,4 +1,4 @@
-ARG GATEWAY_RS_RELEASE=v1.1.1
+ARG GATEWAY_RS_RELEASE=v1.2.1
 
 FROM quay.io/team-helium/miner:gateway-"$GATEWAY_RS_RELEASE" AS runner
 
